@@ -330,11 +330,12 @@ const LOOK={
 
 
 /* ---------- sprite nhân vật chính (ảnh PNG, mỗi khung 128×128, quay mặt sang phải) ---------- */
-const HERO={ready:false,sheets:{idle:{ax:72},thrust:{ax:53},heavy:{ax:58},combo:{ax:53},death:{ax:60}}};
+const HERO={ready:false,sheets:{idle:{ax:72},thrust:{ax:53},heavy:{ax:58},combo:{ax:53},death:{ax:60},stand:{ax:33},jump:{ax:66},guard:{ax:68},run:{ax:50},walk:{ax:59}}};
 const ANIM={
-  idle:{s:'idle',f:[0,1,2],fps:5,loop:1}, walk:{s:'idle',f:[0,1,2],fps:10,loop:1}, ready:{s:'thrust',f:[0,1],fps:6,loop:1},
+  idle:{s:'idle',f:[0,1,2],fps:5,loop:1}, stand:{s:'stand',f:[0,1,2,3,4,5],fps:6,loop:1},
+  walk:{s:'walk',f:[0,1,2,3,4,5,6,7,8],fps:12,loop:1}, run:{s:'run',f:[0,1,2,3,4,5,6,7],fps:14,loop:1}, jump:{s:'jump',f:[0,1,2,3,4,5,6,7,8],fps:26}, ready:{s:'thrust',f:[0,1],fps:6,loop:1},
   combo:{s:'combo',f:[0,1,2,3],fps:13}, thrust:{s:'thrust',f:[0,1,2,3],fps:12}, heavy:{s:'heavy',f:[0,1,2,3,4],fps:11},
-  hurt:{s:'death',f:[2],fps:1}, guard:{s:'death',f:[1],fps:1}, death:{s:'death',f:[0,1,2,3,4,5],fps:8}};
+  hurt:{s:'death',f:[2],fps:1}, guard:{s:'guard',f:[0,1],fps:4,loop:1}, death:{s:'death',f:[0,1,2,3,4,5],fps:8}};
 (()=>{const ks=Object.keys(HERO.sheets);let n=0;for(const k of ks){const im=new Image();im.onload=()=>{if(++n===ks.length){HERO.ready=true;drawIcons()}};im.src='assets/samurai/'+k+'.png';HERO.sheets[k].img=im}})();
 function heroFrame(a){const A=ANIM[a.name]||ANIM.idle;let i=Math.floor(a.t*A.fps);i=A.loop?i%A.f.length:Math.min(i,A.f.length-1);return{sh:HERO.sheets[A.s],fi:A.f[i]}}
 function drawHero(c,x,y,face,a,sc){
@@ -592,7 +593,7 @@ function stepBattle(dt){
 }
 function dash(actor,from,to,hit,o={}){
   const K=bk(),side=from.x<to.x?-1:1,gap=o.gap??14*K,dx=to.x+side*gap-from.x,dy=to.y-from.y;let fired=false;
-  return[{d:.22,start:()=>{if(o.run)setMe(o.run)},tick:k=>{actor.ox=dx*k;actor.oy=dy*k}},
+  return[{d:o.dashD||.22,start:()=>{if(o.run)setMe(o.run)},tick:k=>{actor.ox=dx*k;actor.oy=dy*k}},
     {d:o.d||.2,start:()=>{if(o.anim)setMe(o.anim);if(!o.at){fired=true;hit()}},tick:k=>{if(!fired&&k>=o.at){fired=true;hit()}}},
     {d:.22,tick:k=>{actor.ox=dx*(1-k);actor.oy=dy*(1-k)},end:()=>{actor.ox=actor.oy=0;if(o.anim)setMe('idle')}}];
 }
@@ -608,7 +609,7 @@ function curTarget(){let t=B.foes[B.sel];if(!t||t.dead){B.sel=B.foes.findIndex(f
 function doAction(kind,opt){
   if(!B||B.phase!=='input')return;
   const me=mpos(),K=bk(),tgt=curTarget(),alive=B.foes.filter(f=>!f.dead);let steps=[];
-  if(kind==='atk'){const p=fpos(B.sel);steps=dash(B.me,me,p,()=>{fx.push({type:'crescent',x:p.x,y:p.y-12*K,t:0,rot:-.5});hitFoe(tgt,1)},{gap:heroGap(),run:'ready',anim:'combo',d:.42,at:.4})}
+  if(kind==='atk'){const p=fpos(B.sel);steps=dash(B.me,me,p,()=>{fx.push({type:'crescent',x:p.x,y:p.y-12*K,t:0,rot:-.5});hitFoe(tgt,1)},{gap:heroGap(),run:'run',anim:'combo',d:.42,at:.4})}
   else if(kind==='spell'){
     if(P.mp<opt.mp)return toast('Không đủ pháp lực');P.mp-=opt.mp;
     steps.push({d:.45,start:()=>{setMe('ready');fx.push({type:'aura',x:me.x,y:me.y,t:0});floatText(me.x,me.y-meH()-10,opt.name,'#9fe8ff')}});
@@ -616,7 +617,7 @@ function doAction(kind,opt){
       steps.push({d:.42,start:()=>{setMe('thrust');for(const f of alive){const p=fpos(B.foes.indexOf(f));fx.push({type:'qi',x:me.x-30,y:me.y-meH()*.6,x1:p.x,y1:p.y-12*K,t:0})}}});
       steps.push({d:.45,start:()=>{B.shake=.25;for(const f of alive){const p=fpos(B.foes.indexOf(f));fx.push({type:'xslash',x:p.x,y:p.y-12*K,t:0});hitFoe(f,opt.mult)}},end:()=>setMe('idle')});
     }
-    else{const p=fpos(B.sel);steps.push(...dash(B.me,me,p,()=>{B.shake=.3;fx.push({type:'bigslash',x:p.x,y:p.y-14*K,t:0},{type:'shock',x:p.x,y:p.y,t:0});hitFoe(tgt,opt.mult)},{gap:heroGap()-6,run:'ready',anim:'heavy',d:.55,at:.5}))}
+    else{const p=fpos(B.sel);steps.push(...dash(B.me,me,p,()=>{B.shake=.3;fx.push({type:'bigslash',x:p.x,y:p.y-14*K,t:0},{type:'shock',x:p.x,y:p.y,t:0});hitFoe(tgt,opt.mult)},{gap:heroGap()-6,run:'jump',dashD:.36,anim:'heavy',d:.55,at:.5}))}
   }
   else if(kind==='heal'){
     if(opt.mp){if(P.mp<opt.mp)return toast('Không đủ pháp lực');if(P.hp>=maxHp())return toast('Sinh lực đang đầy')}
@@ -723,7 +724,7 @@ function update(dt){
   if(P.path.length&&!P.dead){const p=P.path[0],dx=p.x-P.x,dy=p.y-P.y,d=Math.hypot(dx,dy),st=spd*dt;
     if(d<=st){P.x=p.x;P.y=p.y;P.path.shift()}else{P.x+=dx/d*st;P.y+=dy/d*st}
     if(Math.abs(dx)>.5)P.face=dx>0?1:-1;P.moving=true}
-  {const n=P.moving?'walk':'idle';if(P.anim.name!==n)P.anim={name:n,t:0};P.anim.t+=dt}
+  {const n=P.moving?(auto||P.target?'run':'walk'):'stand';if(P.anim.name!==n)P.anim={name:n,t:0};P.anim.t+=dt}
   // cổng
   for(const pt of curMap.portals)if(Math.hypot(pt.x-P.x,pt.y-P.y)<10){changeMap(pt.to,pt.tx,pt.ty);break}
   // quái
