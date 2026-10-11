@@ -14,9 +14,6 @@
   </defs>
 
   <!-- nền: giấy ô li vở toán -->
-  <rect width="1400" height="600" fill="#f7f9fb"/>
-  <rect width="1400" height="600" fill="url(#grid)"/>
-  <rect x="0" y="0" width="1400" height="600" fill="none" stroke="#e8edf2" stroke-width="2"/>
 
   <!-- dải ruy băng cầu vồng + huy chương π (góc trái dưới) -->
   <path d="M140 255 C 60 300, 70 380, 160 395 S 300 420, 330 470 S 470 525, 560 505"
