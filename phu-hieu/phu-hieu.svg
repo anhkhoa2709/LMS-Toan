@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="600" viewBox="0 0 1400 600">
+  <defs>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M28 0H0V28" fill="none" stroke="#c9dbe8" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="rb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4c430"/><stop offset=".3" stop-color="#7cc242"/>
+      <stop offset=".55" stop-color="#22a7c9"/><stop offset=".8" stop-color="#3b5bdb"/><stop offset="1" stop-color="#7b3fe4"/>
+    </linearGradient>
+    <radialGradient id="gold" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#ffe9a3"/><stop offset=".6" stop-color="#e9b524"/><stop offset="1" stop-color="#b8860b"/>
+    </radialGradient>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#5a3a1a" flood-opacity=".25"/></filter>
+  </defs>
+
+  <!-- nền: giấy ô li vở toán -->
+  <rect width="1400" height="600" fill="#f7f9fb"/>
+  <rect width="1400" height="600" fill="url(#grid)"/>
+  <rect x="0" y="0" width="1400" height="600" fill="none" stroke="#e8edf2" stroke-width="2"/>
+
+  <!-- dải ruy băng cầu vồng + huy chương π (góc trái dưới) -->
+  <path d="M140 255 C 60 300, 70 380, 160 395 S 300 420, 330 470 S 470 525, 560 505"
+        fill="none" stroke="url(#rb)" stroke-width="34" stroke-linecap="round"/>
+  <g transform="translate(625 520)" filter="url(#sh)">
+    <circle r="62" fill="url(#gold)" stroke="#a87808" stroke-width="5"/>
+    <circle r="46" fill="none" stroke="#fff3c4" stroke-width="3" stroke-dasharray="6 6"/>
+    <text y="26" text-anchor="middle" font-family="Liberation Serif" font-weight="bold" font-style="italic" font-size="78" fill="#7a5200">π</text>
+  </g>
+
+  <!-- compa (thay áo đồng phục) góc trái trên -->
+  <g transform="translate(165 130) rotate(-12)" filter="url(#sh)">
+    <rect x="-16" y="-70" width="32" height="26" rx="6" fill="#e8742a"/>
+    <circle cx="0" cy="-40" r="14" fill="#e8742a" stroke="#fff" stroke-width="4"/>
+    <path d="M-6 -30 L-62 95" stroke="#e8742a" stroke-width="14" stroke-linecap="round"/>
+    <path d="M6 -30 L62 95" stroke="#e8742a" stroke-width="14" stroke-linecap="round"/>
+    <path d="M-62 95 L-66 112" stroke="#555" stroke-width="5" stroke-linecap="round"/>
+    <path d="M62 95 L64 116" stroke="#2b2b2b" stroke-width="7" stroke-linecap="round"/>
+    <path d="M-48 62 A 60 60 0 0 0 48 62" fill="none" stroke="#fff" stroke-width="5"/>
+  </g>
+
+  <!-- bong bóng hội thoại có kí hiệu toán (góc phải trên) -->
+  <g filter="url(#sh)">
+    <path d="M1150 40 h150 a40 40 0 0 1 40 40 v50 a40 40 0 0 1 -40 40 h-90 l-40 34 l8 -34 h-28 a40 40 0 0 1 -40 -40 v-50 a40 40 0 0 1 40 -40z" fill="#ffffff" stroke="#e3e8ee" stroke-width="2"/>
+    <text x="1225" y="128" text-anchor="middle" font-family="Liberation Serif" font-size="70" fill="#e8742a">∑</text>
+    <path d="M1240 150 h120 a34 34 0 0 1 34 34 v38 a34 34 0 0 1 -34 34 h-36 l6 30 l-36 -30 h-54 a34 34 0 0 1 -34 -34 v-38 a34 34 0 0 1 34 -34z" fill="#d9472b"/>
+    <text x="1300" y="222" text-anchor="middle" font-family="Liberation Serif" font-size="56" fill="#fff">√x</text>
+  </g>
+
+  <!-- tam giác vuông lớn màu cam (thay lá phong) góc phải dưới -->
+  <g transform="translate(1255 440)" filter="url(#sh)">
+    <path d="M-95 95 L95 95 L-95 -95 Z" fill="#f08a2c"/>
+    <path d="M-95 70 h25 v25" fill="none" stroke="#fff" stroke-width="5"/>
+    <text x="-108" y="10" text-anchor="end" font-family="Liberation Serif" font-style="italic" font-size="34" fill="#c45f12">a</text>
+    <text x="0" y="135" text-anchor="middle" font-family="Liberation Serif" font-style="italic" font-size="34" fill="#c45f12">b</text>
+    <text x="10" y="-8" font-family="Liberation Serif" font-style="italic" font-size="30" fill="#c45f12">a²+b²=c²</text>
+  </g>
+
+  <!-- khung chính -->
+  <g filter="url(#sh)">
+    <rect x="300" y="150" width="800" height="300" fill="#ffffff" stroke="#b5622a" stroke-width="7"/>
+    <line x1="300" y1="300" x2="1100" y2="300" stroke="#b5622a" stroke-width="6"/>
+    <line x1="805" y1="300" x2="805" y2="450" stroke="#b5622a" stroke-width="6"/>
+  </g>
+  <text x="700" y="262" text-anchor="middle" font-family="Liberation Serif" font-weight="bold" font-size="84" letter-spacing="3" fill="#e0782c">LỚP TOÁN</text>
+  <text x="525" y="398" text-anchor="middle" font-family="Liberation Sans" font-size="66" fill="#1d1d1d">Thầy Khoa</text>
+  <text x="750" y="400" text-anchor="middle" font-family="Liberation Serif" font-style="italic" font-size="76" fill="#d9472b">∞</text>
+  <text x="953" y="398" text-anchor="middle" font-family="Liberation Sans" font-weight="bold" font-size="60" fill="#1d1d1d">K26</text>
+</svg>
