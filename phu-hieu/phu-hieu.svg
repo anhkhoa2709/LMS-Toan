@@ -54,7 +54,7 @@
 
   <!-- khung chính -->
   <g filter="url(#sh)">
-    <rect x="300" y="150" width="800" height="300" fill="#ffffff" stroke="#b5622a" stroke-width="7"/>
+    <rect x="300" y="150" width="800" height="300" fill="none" stroke="#b5622a" stroke-width="7"/>
     <line x1="300" y1="300" x2="1100" y2="300" stroke="#b5622a" stroke-width="6"/>
     <line x1="805" y1="300" x2="805" y2="450" stroke="#b5622a" stroke-width="6"/>
   </g>
