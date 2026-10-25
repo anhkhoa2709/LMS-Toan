@@ -136,6 +136,20 @@ Mỗi file PNG là một dải ngang, mỗi khung **128×128**, nền trong su�
 
 Ý tưởng chủ dự án từng được gợi ý nhưng chưa chọn: túi đồ và trang bị, thêm bản đồ và nhiệm vụ, máy chủ để nhiều người chơi cùng (chat thật, tài khoản).
 
+## 6b. Folder `background/` mới tải lên (chưa dùng)
+
+Chủ dự án đã tải được cả folder qua GitHub (commit "Add files via upload" trên `master`), nằm ở **`/background/` gốc repo**, ngoài thư mục `tay-du-ky/`.
+
+- **Nội dung:** 50 file `1.png`…`50.png`, mỗi file **512×512, tổng khoảng 18 MB**.
+- **Thực tế đây là chân dung nhân vật**, không phải ảnh nền: tranh vẽ tay phong cách fantasy châu Âu (dân làng, hiệp sĩ, vua, hoàng hậu, phù thủy, cung thủ trùm đầu…), nền tối.
+- **Chưa hỏi chủ dự án định dùng làm gì.** Đề xuất:
+  - Ảnh chân dung NPC trong hộp hội thoại `#dialog`, thay cho canvas `#dPortrait`.
+  - Ảnh đại diện để người chơi chọn.
+- **Trước khi đưa vào game:**
+  - Thu nhỏ còn khoảng 128×128 (ImageMagick `convert x.png -resize 128x128 out.png`), đặt vào `tay-du-ky/assets/portraits/` để nhẹ. Ảnh vẽ tay mịn nên **không** dùng `image-rendering: pixelated` cho ảnh này.
+  - Phong cách châu Âu lệch với chủ đề Tây Du, nên **hỏi chủ dự án trước** khi gán cho Tôn Ngộ Không hay Thiên Vương.
+- **Cách tải folder đã chạy được:** kéo folder vào trang upload GitHub. Lần sau chủ dự án gửi sprite (cung thủ, võ sĩ áo đỏ) thì nên đi đường này, rồi agent `git pull origin master`.
+
 ## 7. Lưu ý về file chủ dự án gửi (quan trọng)
 
 - **Ảnh dán vào chat chỉ thành file trên máy khi gửi ở đầu lượt**, lúc agent đã trả lời xong.
@@ -143,8 +157,8 @@ Mỗi file PNG là một dải ngang, mỗi khung **128×128**, nền trong su�
   - Ảnh nhận được nằm ở thư mục `images/` của phiên làm việc. Đường dẫn ghi trong tin nhắn dạng `[Image: source: ...]`.
 - Chủ dự án muốn tải **cả folder**:
   - Máy chạy agent **chỉ ra được GitHub**. Google Drive, Dropbox, Mediafire, transfer.sh đều bị proxy chặn.
-  - Cách đã hướng dẫn: kéo folder vào https://github.com/anhkhoa2709/LMS-Toan/upload/master trên máy tính, rồi Commit. Lần thử trước chủ dự án báo "không được", **chưa rõ lỗi ở đâu**.
-  - Agent tiếp theo nên `git fetch origin` để xem có sprite mới chưa, và hỏi ảnh chụp lỗi nếu vẫn chưa có.
+  - Cách đã hướng dẫn: kéo folder vào https://github.com/anhkhoa2709/LMS-Toan/upload/master trên máy tính, rồi Commit. Cách này **đã thành công** với folder `background/` (xem mục 6b).
+  - Agent tiếp theo nên `git fetch origin` để xem có file mới chưa.
 - Sprite có thể lấy từ game khác. Đã nhắc chủ dự án: chỉ dùng riêng thì được, phát hành công khai cần sprite có giấy phép.
 
 ## 8. Cách kiểm thử
